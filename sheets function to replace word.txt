@@ -1,0 +1,30 @@
+
+function onFormSubmit(e) {
+  var sheet = e.source.getActiveSheet();
+  var lastRow = sheet.getLastRow();
+  var values = sheet.getRange(lastRow, 1, 1, sheet.getLastColumn()).getValues()[0];
+  
+  var replacements = [
+    { old: "בוקר", new: "morning" },
+    { old: "צהריים", new: "noon" },
+    { old: "לילה", new: "night" },
+    { old: ", ", new: "." }
+  ];
+
+  // Loop through each cell in the last inserted row
+  for (var i = 0; i < values.length; i++) {
+    var cellValue = values[i].toString().toLowerCase(); // Convert to lowercase for case-insensitive comparison
+    
+    // Apply each replacement to the cell value
+    for (var j = 0; j < replacements.length; j++) {
+      var oldWord = replacements[j].old;
+      var newWord = replacements[j].new;
+      
+      // Replace all occurrences of the target word with the new text
+      cellValue = cellValue.replace(new RegExp(oldWord, 'gi'), newWord);
+    }
+
+    // Update the cell value with the replaced text
+    sheet.getRange(lastRow, i + 1).setValue(cellValue);
+  }
+}
