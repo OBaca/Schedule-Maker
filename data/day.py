@@ -240,3 +240,12 @@ def revisit_backup_spots(schedule, workers):
                     
         yesterday = day
     
+
+''' This function add the limitation table to the schedule for easy access.'''
+def transfer_limitation_to_schedule(wb,ws,ws2, amount_of_workers):
+
+    for i in range(1,amount_of_workers+2):
+        for j in range(10):
+            ws[chr(ord('L')+j) + str(i)] = ws2[chr(ord('A')+j) +str(i)].value
+    
+    wb.save("Template/תבנית סידור.xlsx")

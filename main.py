@@ -96,6 +96,8 @@ def main(manual=True):
     woo = "A2"
     print(woo[-1])'''
     
+    transfer_limitation_to_schedule(wb,ws,ws2,len(workers))
+
     make_excel_schedule(ws2,schedule)
 
 
