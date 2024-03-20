@@ -65,7 +65,8 @@ def make_excel_schedule(ws2,schedule):
         for i in range(len(day.shifts)):
             # placing the right names at the right shifts
             ws[chr(66 + day_counter) + str(get_line_from_template(day.amount_of_shifts, i)) ] = ws['J' + day.shifts[i][1]].value
-
+            if day.shifts[i] == 'A9':
+                ws[chr(66 + day_counter) + str(get_line_from_template(day.amount_of_shifts, i))].fill = PatternFill(start_color='FFFF0000',end_color='FFFF0000',fill_type='solid')
         day_counter+=1
 
     i=0
