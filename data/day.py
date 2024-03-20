@@ -6,7 +6,7 @@ class Day:
         self.id = id
         self.name = name
         self.amount_of_shifts = amount_of_shifts
-        self.shifts = ["A9" for i in range(self.amount_of_shifts) ]
+        self.shifts = [BACKUP_WORKER for i in range(self.amount_of_shifts) ]
 
 
     def __str__(self):
@@ -65,7 +65,7 @@ def make_excel_schedule(ws2,schedule):
         for i in range(len(day.shifts)):
             # placing the right names at the right shifts
             ws[chr(66 + day_counter) + str(get_line_from_template(day.amount_of_shifts, i)) ] = ws['J' + day.shifts[i][1]].value
-            if day.shifts[i] == 'A9':
+            if day.shifts[i] == BACKUP_WORKER:
                 ws[chr(66 + day_counter) + str(get_line_from_template(day.amount_of_shifts, i))].fill = PatternFill(start_color='FFFF0000',end_color='FFFF0000',fill_type='solid')
         day_counter+=1
 
@@ -118,7 +118,6 @@ def assign_workers(workers, schedule):
     backup_worker = False
     ''' Need to add yesterday to the function so we can get the last week saturday night position'''
     yesterday = None
-    
     
     for day in schedule:
         for shift in range(day.amount_of_shifts):
@@ -247,6 +246,6 @@ def transfer_limitation_to_schedule(wb,ws,ws2, amount_of_workers):
 
     for i in range(1,amount_of_workers+2):
         for j in range(10):
-            ws[chr(ord('L')+j) + str(i)] = ws2[chr(ord('A')+j) +str(i)].value
+            ws[chr(ord(START_OF_REQUEST_TABLE)+j) + str(i)] = ws2[chr(ord(START_OF_SCHEDULE)+j) +str(i)].value
     
     wb.save("Template/תבנית סידור.xlsx")

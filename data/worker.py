@@ -109,8 +109,3 @@ def print_workers_stats(workers):
         print('nights counter: ' + str(worker.nights_counter))
         print('amount of eightx2: ' + str(worker.eightx2))
         print('amount of eightx3: '+ str(worker.eightx3))
-
-
-''' This function change the color of the backup worker.'''
-def change_backup_color(wb,ws,schedule):
-    pass
