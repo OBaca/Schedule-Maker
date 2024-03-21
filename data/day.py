@@ -120,12 +120,13 @@ def assign_workers(workers, schedule):
     yesterday = None
     
     for day in schedule:
+        
         for shift in range(day.amount_of_shifts):
             exclude_worker = []
-            
+
             # get a random worker
             curr_worker=random.randint(0,len(workers)-1)
-
+            #print(str(workers[curr_worker].availability_position)+","+str(workers[curr_worker].can_work[counter]) + ',' + str(workers[curr_worker].check_availability(day, counter, shift)) +","+str(day.shift_ground_rules(workers[curr_worker],shift,yesterday))+","+str(workers[curr_worker].shifts_counter)+","+str(day.name)+","+str(shift))
             while not workers[curr_worker].can_work[counter] or not workers[curr_worker].check_availability(day, counter, shift) \
                     or not day.shift_ground_rules(workers[curr_worker],shift,yesterday) or workers[curr_worker].shifts_counter >= workers[curr_worker].max_shifts\
                         or workers[curr_worker].nights_counter >=NIGHTS_LIMIT:

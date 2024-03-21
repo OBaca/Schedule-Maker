@@ -86,9 +86,13 @@ def main(manual=True):
     schedule = best_schedule
     workers = best_workers
     '''
+    # print
+    '''
     print_schedule(schedule)
     print(min_backup_workers)
     print_workers_stats(workers)
+    '''
+
     # testing
     '''word = "a.b[12:22]"
     print(word.split('.'))
@@ -96,6 +100,8 @@ def main(manual=True):
     woo = "A2"
     print(woo[-1])'''
     
+    print(len(workers[0].availability[0]))
+
     transfer_limitation_to_schedule(wb,ws,ws2,len(workers))
 
     make_excel_schedule(ws2,schedule)
