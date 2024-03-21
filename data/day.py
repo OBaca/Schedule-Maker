@@ -211,7 +211,7 @@ def backtracking(schedule, current_day, workers, min_backup_workers, min_backup_
                 pass
 
 
-
+'''This function loops over the schedule and check where the backup workers are if they can be replaced'''
 def revisit_backup_spots(schedule, workers):
     yesterday = None
     counter=0
@@ -219,12 +219,6 @@ def revisit_backup_spots(schedule, workers):
         for shift in range(len(day.shifts)):
             if day.shifts[shift] == BACKUP_WORKER:
                 for worker in workers:
-                    print(str(worker.availability_position)+",day:"+str(day.name)+",shift:"+str(shift)+","+str(worker.shifts_counter))
-                    print(day.shifts[shift])
-                    print(str(worker.can_work[day.id]) +","+ str(worker.check_availability(day, day.id, shift))+","+ \
-                        str(day.shift_ground_rules(worker,shift,yesterday))+","+ \
-                            str( worker.shifts_counter < worker.max_shifts)+","+ \
-                                str( worker.nights_counter <NIGHTS_LIMIT))
                     if (worker.can_work[day.id] and worker.check_availability(day, day.id, shift) \
                         and day.shift_ground_rules(worker,shift,yesterday) \
                              and worker.shifts_counter < worker.max_shifts):
@@ -234,7 +228,6 @@ def revisit_backup_spots(schedule, workers):
                             day.shifts[shift] = worker.availability_position
                             worker.shifts_counter +=1
                             worker.can_work[day.id] = False
-                            print('yea make a change')
                             if check_if_night_shift(shift,day.amount_of_shifts):
                                 worker.nights_counter +=1
                     
