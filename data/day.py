@@ -55,10 +55,6 @@ def create_schedule(amount_of_shifts):
 def make_excel_schedule(ws2,schedule):
     wb = load_workbook("Template/תבנית סידור.xlsx")
     ws = wb.active
-    ''' Position 0: front stage, Position 1: back stage'''
-    morning_line = [4,8]
-    noon_line = [5,9]
-    night_line = [6,10]
 
     day_counter=0
     for day in schedule:
@@ -123,10 +119,9 @@ def assign_workers(workers, schedule):
         
         for shift in range(day.amount_of_shifts):
             exclude_worker = []
-
             # get a random worker
             curr_worker=random.randint(0,len(workers)-1)
-            #print(str(workers[curr_worker].availability_position)+","+str(workers[curr_worker].can_work[counter]) + ',' + str(workers[curr_worker].check_availability(day, counter, shift)) +","+str(day.shift_ground_rules(workers[curr_worker],shift,yesterday))+","+str(workers[curr_worker].shifts_counter)+","+str(day.name)+","+str(shift))
+
             while not workers[curr_worker].can_work[counter] or not workers[curr_worker].check_availability(day, counter, shift) \
                     or not day.shift_ground_rules(workers[curr_worker],shift,yesterday) or workers[curr_worker].shifts_counter >= workers[curr_worker].max_shifts\
                         or workers[curr_worker].nights_counter >=NIGHTS_LIMIT:
@@ -146,9 +141,7 @@ def assign_workers(workers, schedule):
             day.shifts[shift]=workers[curr_worker].availability_position
             workers[curr_worker].can_work[counter] = False
             workers[curr_worker].shifts_counter +=1
-            if day.amount_of_shifts == 4 and shift in [2,3] or \
-               day.amount_of_shifts == 5 and shift in [2,4] or \
-               day.amount_of_shifts == 6 and shift in [2,5]:
+            if check_if_night_shift(shift,day.amount_of_shifts):
                 workers[curr_worker].nights_counter +=1
             
             # schedule, day_num, shift_num, curr_worker
@@ -221,25 +214,32 @@ def backtracking(schedule, current_day, workers, min_backup_workers, min_backup_
 
 def revisit_backup_spots(schedule, workers):
     yesterday = None
+    counter=0
     for day in schedule:
         for shift in range(len(day.shifts)):
             if day.shifts[shift] == BACKUP_WORKER:
-                
                 for worker in workers:
-                    if worker.can_work[day.id] and worker.check_availability(day, day.id, shift) \
+                    print(str(worker.availability_position)+",day:"+str(day.name)+",shift:"+str(shift)+","+str(worker.shifts_counter))
+                    print(day.shifts[shift])
+                    print(str(worker.can_work[day.id]) +","+ str(worker.check_availability(day, day.id, shift))+","+ \
+                        str(day.shift_ground_rules(worker,shift,yesterday))+","+ \
+                            str( worker.shifts_counter < worker.max_shifts)+","+ \
+                                str( worker.nights_counter <NIGHTS_LIMIT))
+                    if (worker.can_work[day.id] and worker.check_availability(day, day.id, shift) \
                         and day.shift_ground_rules(worker,shift,yesterday) \
-                            and worker.shifts_counter < worker.max_shifts \
-                                and worker.nights_counter <NIGHTS_LIMIT:
-                        day.shifts[shift] = worker.availability_position
-                        worker.shifts_counter +=1
-                        worker.can_work[day.id] = False
-                        print('yea make a change')
-                        if day.amount_of_shifts == 4 and shift in [2,3] or \
-                            day.amount_of_shifts == 5 and shift in [2,4] or \
-                                day.amount_of_shifts == 6 and shift in [2,5]:
-                            worker.nights_counter +=1
+                             and worker.shifts_counter < worker.max_shifts):
+                        if not check_if_night_shift(shift,day.amount_of_shifts) or \
+                            (worker.nights_counter <NIGHTS_LIMIT and  check_if_night_shift(shift,day.amount_of_shifts)):
+                            
+                            day.shifts[shift] = worker.availability_position
+                            worker.shifts_counter +=1
+                            worker.can_work[day.id] = False
+                            print('yea make a change')
+                            if check_if_night_shift(shift,day.amount_of_shifts):
+                                worker.nights_counter +=1
                     
         yesterday = day
+        counter+=1
     
 
 ''' This function add the limitation table to the schedule for easy access.'''
@@ -250,3 +250,13 @@ def transfer_limitation_to_schedule(wb,ws,ws2, amount_of_workers):
             ws[chr(ord(START_OF_REQUEST_TABLE)+j) + str(i)] = ws2[chr(ord(START_OF_SCHEDULE)+j) +str(i)].value
     
     wb.save("Template/תבנית סידור.xlsx")
+
+
+
+'''This function returns True if a shift is a night shift'''
+def check_if_night_shift(shift_num,amount_of_shifts):
+    if amount_of_shifts == 4 and shift_num in [2,3] or \
+                            amount_of_shifts == 5 and shift_num in [2,4] or \
+                                amount_of_shifts == 6 and shift_num in [2,5]:
+        return True
+    return False

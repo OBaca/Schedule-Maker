@@ -70,7 +70,7 @@ def main(manual=True):
         
     schedule = best_schedule
     workers = best_workers
-    '''
+    
     # revisit all the backup spots and check if we can still place regular worker on the spot and it will not affect him.
     for i in range(10):
         schedule_temp = deepcopy(schedule)
@@ -85,7 +85,7 @@ def main(manual=True):
 
     schedule = best_schedule
     workers = best_workers
-    '''
+    
     # print
     '''
     print_schedule(schedule)
