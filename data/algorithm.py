@@ -6,24 +6,27 @@ from copy import deepcopy
 
 
 
-AMOUNT_OF_WORKERS = 'M8'
-AMOUNT_OF_SHIFTS = 'I'
-WORKER_POSITION = 'A'
-
-
 def algorithm(manual=True):
     if manual:
-        wb = load_workbook("Template/תבנית סידור.xlsx")
+        path = "manual/תבנית סידור.xlsx"
+        wb = load_workbook(f"{path}")
         ws = wb.active
         
-        wb2 = load_workbook("Template/תבנית זמינות.xlsx")
+        wb2 = load_workbook("manual/תבנית זמינות.xlsx")
         ws2 = wb2.active
+
+        
+        
     else:
-        wb = load_workbook("automate/תבנית סידור.xlsx")
+        path = "automate/תבנית סידור.xlsx"
+        wb = load_workbook(f"{path}")
         ws = wb.active
         
-        wb2 = load_workbook("automate/זמינות.xlsx")
+        wb2 = load_workbook("automate/תבנית זמינות.xlsx")
         ws2 = wb2.active
+
+        
+        
 
     
 
@@ -37,20 +40,8 @@ def algorithm(manual=True):
     #transfer_workers_names(ws,ws2,len(workers))
     for i in range(2,len(workers)+3):
         ws['J' + str(i)] = ws2['A'+str(i)].value
-    wb.save("Template/תבנית סידור.xlsx")
+    wb.save(f"{path}")
     
-    '''
-    for day in schedule:
-        print(day)
-
-    for worker in workers:
-        print(worker)
-        #worker.print_availability()
-    
-    for worker in workers:
-        print(worker.availability)
-    ''' 
-    print("=-=-=-=-=-=-=-=-=")
     
     best_schedule = []
     best_workers = []
@@ -88,22 +79,9 @@ def algorithm(manual=True):
     schedule = best_schedule
     workers = best_workers
     
-    # print
-    '''
-    print_schedule(schedule)
-    print(min_backup_workers)
-    print_workers_stats(workers)
-    '''
-
-    # testing
-    '''word = "a.b[12:22]"
-    print(word.split('.'))
-
-    woo = "A2"
-    print(woo[-1])'''
     
     print(len(workers[0].availability[0]))
 
-    transfer_limitation_to_schedule(wb,ws,ws2,len(workers))
+    transfer_constraints_to_schedule(wb,ws,ws2,len(workers),path)
 
-    make_excel_schedule(ws2,schedule)
+    make_excel_schedule(schedule,path)

@@ -1,7 +1,7 @@
 from data.constants import *
 
 class Worker:
-    def __init__(self, position, min_shifts=4, max_shifts=6):
+    def __init__(self, position, min_shifts=4, max_shifts=6, max_nights=2):
         self.availability_position = position
         self.availability = [""]*7
         self.can_work = [True]*7
@@ -9,6 +9,7 @@ class Worker:
         self.max_shifts = max_shifts
         self.shifts_counter = 0
         self.nights_counter = 0
+        self.max_nights = max_nights
         self.eightx2 = 0 #8 hours of work, 8 hours of rest, 8 hours of work
         self.eightx3 = 0 # same as eightx2 but it happens 3 times
 
@@ -83,14 +84,11 @@ class Worker:
 
 ''' This function create the workers and assign them to the workers array'''
 def create_workers(ws):
-    amount_of_workers_position = 'M20'
-    worker_position = 'A'
-    amount_of_shifts_position = 'I'
     workers = []
-    amount_of_workers = ws[amount_of_workers_position].value
+    amount_of_workers = ws[AMOUNT_OF_WORKERS_POS].value
 
     for i in range(2,2+amount_of_workers):
-        workers.append(Worker(f"{worker_position}{i}",max_shifts= ws[f"{amount_of_shifts_position}{i}"].value ) )
+        workers.append(Worker(f"{WORKER_POSITION}{i}",max_shifts= ws[f"{AMOUNT_OF_SHIFTS_POS}{i}"].value,max_nights= ws[f"{AMOUNT_OF_NIGHT_POS}{i}"].value) )
 
     for worker in workers:
         worker.get_availability(ws)

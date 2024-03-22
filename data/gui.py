@@ -1,9 +1,8 @@
 from customtkinter import *
 from openpyxl import Workbook, load_workbook
-from datetime import datetime
 from openpyxl.styles import PatternFill
 from data.algorithm import algorithm
-
+from data.constants import *
 
 def gui():
     set_appearance_mode("dark")
@@ -47,10 +46,10 @@ def make_excel_automate():
     wb2 = load_workbook("sheets/sheet.xlsx")
     ws2 = wb2.active
     
-    wb = load_workbook("Template/תבנית זמינות.xlsx")
+    wb = load_workbook("automate/תבנית זמינות.xlsx")
     ws = wb.active
 
-    wb3 = load_workbook("Template/תבנית סידור.xlsx")
+    wb3 = load_workbook("automate/תבנית סידור.xlsx")
     ws3 = wb3.active
 
     date_str = datetime.now().strftime("%Y-%m-%d")
@@ -81,7 +80,7 @@ def make_excel_automate():
     ws3['H'+str(16)] = None
     
     # saving the excel files.
-    wb.save("automate/זמינות.xlsx")
+    wb.save("automate/תבנית זמינות.xlsx")
     wb3.save("automate/תבנית סידור.xlsx")
     algorithm(manual=False)
     

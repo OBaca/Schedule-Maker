@@ -52,8 +52,8 @@ def create_schedule(amount_of_shifts):
     
 
 ''' This function creates an excel schedule from the availability excel sheet.'''
-def make_excel_schedule(ws2,schedule):
-    wb = load_workbook("Template/תבנית סידור.xlsx")
+def make_excel_schedule(schedule,path):
+    wb = load_workbook(f"{path}")
     ws = wb.active
 
     day_counter=0
@@ -65,11 +65,7 @@ def make_excel_schedule(ws2,schedule):
                 ws[chr(66 + day_counter) + str(get_line_from_template(day.amount_of_shifts, i))].fill = PatternFill(start_color='FFFF0000',end_color='FFFF0000',fill_type='solid')
         day_counter+=1
 
-    i=0
-    while os.path.exists(f"({i}) סידור מוכן.xlsx"):
-        i+=1
-    
-    wb.save(f"({i}) סידור מוכן.xlsx")
+    wb.save(f"{save_folder_by_week()}")
 
 
 def get_line_from_template(amount_of_shifts, shift_i):
@@ -124,7 +120,7 @@ def assign_workers(workers, schedule):
 
             while not workers[curr_worker].can_work[counter] or not workers[curr_worker].check_availability(day, counter, shift) \
                     or not day.shift_ground_rules(workers[curr_worker],shift,yesterday) or workers[curr_worker].shifts_counter >= workers[curr_worker].max_shifts\
-                        or workers[curr_worker].nights_counter >=NIGHTS_LIMIT:
+                        or workers[curr_worker].nights_counter >=workers[curr_worker].max_nights:
                 
                 exclude_worker.append(curr_worker)
                 if len(exclude_worker)==len(workers):
@@ -223,7 +219,7 @@ def revisit_backup_spots(schedule, workers):
                         and day.shift_ground_rules(worker,shift,yesterday) \
                              and worker.shifts_counter < worker.max_shifts):
                         if not check_if_night_shift(shift,day.amount_of_shifts) or \
-                            (worker.nights_counter <NIGHTS_LIMIT and  check_if_night_shift(shift,day.amount_of_shifts)):
+                            (worker.nights_counter <worker.max_nights and  check_if_night_shift(shift,day.amount_of_shifts)):
                             
                             day.shifts[shift] = worker.availability_position
                             worker.shifts_counter +=1
@@ -235,14 +231,14 @@ def revisit_backup_spots(schedule, workers):
         counter+=1
     
 
-''' This function add the limitation table to the schedule for easy access.'''
-def transfer_limitation_to_schedule(wb,ws,ws2, amount_of_workers):
+''' This function add the constraints table to the schedule for easy access.'''
+def transfer_constraints_to_schedule(wb,ws,ws2, amount_of_workers,path):
 
     for i in range(1,amount_of_workers+2):
         for j in range(10):
             ws[chr(ord(START_OF_REQUEST_TABLE)+j) + str(i)] = ws2[chr(ord(START_OF_SCHEDULE)+j) +str(i)].value
     
-    wb.save("Template/תבנית סידור.xlsx")
+    wb.save(f"{path}")
 
 
 
