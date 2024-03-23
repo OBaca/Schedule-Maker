@@ -1,7 +1,7 @@
 from data.constants import *
 
 class Worker:
-    def __init__(self, position, min_shifts=4, max_shifts=6, max_nights=2,consecutive_nights=False):
+    def __init__(self, position, min_shifts=4, max_shifts=6, max_nights=2,consecutive_nights='Y', eightx2=1):
         self.availability_position = position
         self.availability = [""]*7
         self.can_work = [True]*7
@@ -10,10 +10,9 @@ class Worker:
         self.max_shifts = max_shifts
         self.nights_counter = 0
         self.max_nights = max_nights
-        self.consecutive_nights = consecutive_nights
-        self.eightx2 = 0 #8 hours of work, 8 hours of rest, 8 hours of work
-        self.eightx3 = 0 # same as eightx2 but it happens 3 times
-
+        self.consecutive_nights = convert_consecutive_nights_to_bool(consecutive_nights)
+        self.eightx2_counter = 0 #8 hours of work, 8 hours of rest, 8 hours of work
+        self.max_eightx2 = eightx2
 
     def  __str__(self):
         return self.availability_position
@@ -89,7 +88,7 @@ def create_workers(ws):
     amount_of_workers = ws[AMOUNT_OF_WORKERS_POS].value
 
     for i in range(2,2+amount_of_workers):
-        workers.append(Worker(f"{WORKER_POSITION}{i}",max_shifts= ws[f"{AMOUNT_OF_SHIFTS_POS}{i}"].value,max_nights= ws[f"{AMOUNT_OF_NIGHT_POS}{i}"].value) )
+        workers.append(Worker(f"{WORKER_POSITION}{i}",max_shifts= ws[f"{AMOUNT_OF_SHIFTS_POS}{i}"].value,max_nights= ws[f"{AMOUNT_OF_NIGHT_POS}{i}"].value,consecutive_nights=ws[f"{CONSECUTIVE_NIGHTS_POS}{i}"].value) )
 
     for worker in workers:
         worker.get_availability(ws)
@@ -108,3 +107,10 @@ def print_workers_stats(workers):
         print('nights counter: ' + str(worker.nights_counter))
         print('amount of eightx2: ' + str(worker.eightx2))
         print('amount of eightx3: '+ str(worker.eightx3))
+
+
+def convert_consecutive_nights_to_bool(consecutive_nights):
+    if consecutive_nights == 'Y':
+        return True
+    else:
+        return False

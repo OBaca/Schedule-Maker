@@ -15,6 +15,7 @@ AMOUNT_OF_SHIFTS_POS = 'I'
 WORKER_POSITION = 'A'
 AMOUNT_OF_WORKERS_POS = 'M20'
 AMOUNT_OF_NIGHT_POS = 'K'
+CONSECUTIVE_NIGHTS_POS = 'M'
 
 def save_folder_by_week():
     current_date = datetime.now()

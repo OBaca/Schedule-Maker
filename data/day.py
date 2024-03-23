@@ -121,7 +121,8 @@ def assign_workers(workers, schedule):
             while not workers[curr_worker].can_work[counter] or not workers[curr_worker].check_availability(day, counter, shift) \
                     or not day.shift_ground_rules(workers[curr_worker],shift,yesterday) or workers[curr_worker].shifts_counter >= workers[curr_worker].max_shifts\
                         or workers[curr_worker].nights_counter >=workers[curr_worker].max_nights \
-                            or (workers[curr_worker].consecutive_nights == False and check_consecutive_nights(workers[curr_worker],yesterday)):
+                            or (workers[curr_worker].consecutive_nights == False and check_consecutive_nights(workers[curr_worker],yesterday)) \
+                                or (workers[curr_worker].eightx2_counter >= workers[curr_worker].max_eightx2 and check_for_eightX2(schedule, counter, shift, workers[curr_worker])):
                 
                 exclude_worker.append(curr_worker)
                 if len(exclude_worker)==len(workers):
@@ -141,9 +142,7 @@ def assign_workers(workers, schedule):
             if check_if_night_shift(shift,day.amount_of_shifts):
                 workers[curr_worker].nights_counter +=1
             
-            # schedule, day_num, shift_num, curr_worker
-            if check_for_eightX2(schedule,day.id, shift, curr_worker):
-                pass
+            
                 
             #time.sleep(0.001)  #used to make a delay for the random seed
         
@@ -162,33 +161,39 @@ def count_backup_workers(schedule):
     return count
 
 
+'''This function check if the worker would do 8-8 shift.'''
 def check_for_eightX2(schedule, day_num, shift_num, curr_worker):
+    # the worker would never do saturday noon/night and sunday morning/noon
+    if day_num == -1:
+            return True
+    curr_worker.eightx2_counter +=1
     if schedule[day_num].amount_of_shifts == 4:
         # if the worker works today at noon and yesterday he worked at night
-        if shift_num == 1 and (schedule[day_num-1].shifts[2] == curr_worker or schedule[day_num-1].shifts[3] == curr_worker):
+        if shift_num == 1 and (schedule[day_num-1].shifts[2] == curr_worker.availability_position or schedule[day_num-1].shifts[3] == curr_worker.availability_position):
             return True
         # if the worker works today at the morning and yesterday he worked at noon
-        if shift_num == 0 and schedule[day_num-1].shifts[1] == curr_worker:
+        if shift_num == 0 and schedule[day_num-1].shifts[1] == curr_worker.availability_position:
             return True
         # and the option to work on the same day twice doesn't apply.
 
     elif schedule[day_num].amount_of_shifts == 5:
         # if the worker works today at noon and yesterday he worked at night
-        if (shift_num == 1 or shift_num==3) and (schedule[day_num-1].shifts[2] == curr_worker or schedule[day_num-1].shifts[3] == curr_worker):
+        if (shift_num == 1 or shift_num==3) and (schedule[day_num-1].shifts[2] == curr_worker.availability_position or schedule[day_num-1].shifts[3] == curr_worker.availability_position):
             return True
         # if the worker works today at the morning and yesterday he worked at noon
-        if shift_num == 0 and schedule[day_num-1].shifts[1] == curr_worker:
+        if shift_num == 0 and schedule[day_num-1].shifts[1] == curr_worker.availability_position:
             return True
     
     elif schedule[day_num].amount_of_shifts == 6:
         # if the worker works today at noon and yesterday he worked at night
-        if (shift_num == 1 or shift_num==4) and (schedule[day_num-1].shifts[2] == curr_worker or schedule[day_num-1].shifts[4] == curr_worker):
+        if (shift_num == 1 or shift_num==4) and (schedule[day_num-1].shifts[2] == curr_worker.availability_position or schedule[day_num-1].shifts[4] == curr_worker.availability_position):
             return True
         # if the worker works today at the morning and yesterday he worked at noon
-        if (shift_num == 0 or shift_num==3) and (schedule[day_num-1].shifts[1] == curr_worker or schedule[day_num-1].shifts[3] == curr_worker):
+        if (shift_num == 0 or shift_num==3) and (schedule[day_num-1].shifts[1] == curr_worker.availability_position or schedule[day_num-1].shifts[3] == curr_worker.availability_position):
             return True
     
     else:
+        curr_worker.eightx2_counter -=1
         return False
     
 
