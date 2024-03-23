@@ -1,15 +1,16 @@
 from data.constants import *
 
 class Worker:
-    def __init__(self, position, min_shifts=4, max_shifts=6, max_nights=2):
+    def __init__(self, position, min_shifts=4, max_shifts=6, max_nights=2,consecutive_nights=False):
         self.availability_position = position
         self.availability = [""]*7
         self.can_work = [True]*7
         self.min_shifts = min_shifts
-        self.max_shifts = max_shifts
         self.shifts_counter = 0
+        self.max_shifts = max_shifts
         self.nights_counter = 0
         self.max_nights = max_nights
+        self.consecutive_nights = consecutive_nights
         self.eightx2 = 0 #8 hours of work, 8 hours of rest, 8 hours of work
         self.eightx3 = 0 # same as eightx2 but it happens 3 times
 

@@ -24,6 +24,6 @@ def save_folder_by_week():
         os.makedirs(week_folder_path)
     
     i=0
-    while os.path.exists(f"{week_folder_path}({i}) סידור מוכן.xlsx"):
+    while os.path.exists(f"{week_folder_path}/({i}) סידור מוכן.xlsx"):
         i+=1
     return f"{week_folder_path}/({i}) סידור מוכן.xlsx"

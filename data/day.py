@@ -120,7 +120,8 @@ def assign_workers(workers, schedule):
 
             while not workers[curr_worker].can_work[counter] or not workers[curr_worker].check_availability(day, counter, shift) \
                     or not day.shift_ground_rules(workers[curr_worker],shift,yesterday) or workers[curr_worker].shifts_counter >= workers[curr_worker].max_shifts\
-                        or workers[curr_worker].nights_counter >=workers[curr_worker].max_nights:
+                        or workers[curr_worker].nights_counter >=workers[curr_worker].max_nights \
+                            or (workers[curr_worker].consecutive_nights == False and check_consecutive_nights(workers[curr_worker],yesterday)):
                 
                 exclude_worker.append(curr_worker)
                 if len(exclude_worker)==len(workers):
@@ -249,3 +250,21 @@ def check_if_night_shift(shift_num,amount_of_shifts):
                                 amount_of_shifts == 6 and shift_num in [2,5]:
         return True
     return False
+
+
+'''This function check if the worker would work two consecutive nights.'''
+def check_consecutive_nights(worker,yesterday):
+    if not yesterday:
+        return False
+    if yesterday.amount_of_shifts == 4:
+        if yesterday.shifts[2] == worker.availability_position or yesterday.shifts[3] == worker.availability_position:
+            return True
+    elif yesterday.amount_of_shifts == 5:
+        if yesterday.shifts[2] == worker.availability_position or yesterday.shifts[4] == worker.availability_position:
+            return True
+    elif yesterday.amount_of_shifts == 6:
+        if yesterday.shifts[2] == worker.availability_position or yesterday.shifts[5] == worker.availability_position:
+            return True
+    else:
+        return False
+      
