@@ -88,7 +88,7 @@ def create_workers(ws):
     amount_of_workers = ws[AMOUNT_OF_WORKERS_POS].value
 
     for i in range(2,2+amount_of_workers):
-        workers.append(Worker(f"{WORKER_POSITION}{i}",max_shifts= ws[f"{AMOUNT_OF_SHIFTS_POS}{i}"].value,max_nights= ws[f"{AMOUNT_OF_NIGHT_POS}{i}"].value,consecutive_nights=ws[f"{CONSECUTIVE_NIGHTS_POS}{i}"].value) )
+        workers.append(Worker(f"{WORKER_POSITION}{i}",max_shifts= ws[f"{AMOUNT_OF_SHIFTS_POS}{i}"].value,max_nights= ws[f"{AMOUNT_OF_NIGHT_POS}{i}"].value,consecutive_nights=ws[f"{CONSECUTIVE_NIGHTS_POS}{i}"].value, eightx2=ws[f"{EIGHTX2_AMOUNT_POS}{i}"].value))
 
     for worker in workers:
         worker.get_availability(ws)

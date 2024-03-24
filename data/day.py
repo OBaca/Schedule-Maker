@@ -142,7 +142,9 @@ def assign_workers(workers, schedule):
             if check_if_night_shift(shift,day.amount_of_shifts):
                 workers[curr_worker].nights_counter +=1
             
-            
+            #check for eightx2 shifts
+            if check_for_eightX2(schedule, counter, shift, workers[curr_worker]):
+                workers[curr_worker].eightx2_counter +=1
                 
             #time.sleep(0.001)  #used to make a delay for the random seed
         
@@ -166,7 +168,7 @@ def check_for_eightX2(schedule, day_num, shift_num, curr_worker):
     # the worker would never do saturday noon/night and sunday morning/noon
     if day_num == -1:
             return True
-    curr_worker.eightx2_counter +=1
+
     if schedule[day_num].amount_of_shifts == 4:
         # if the worker works today at noon and yesterday he worked at night
         if shift_num == 1 and (schedule[day_num-1].shifts[2] == curr_worker.availability_position or schedule[day_num-1].shifts[3] == curr_worker.availability_position):
@@ -193,24 +195,8 @@ def check_for_eightX2(schedule, day_num, shift_num, curr_worker):
             return True
     
     else:
-        curr_worker.eightx2_counter -=1
         return False
     
-
-# delete maybe?
-def backtracking(schedule, current_day, workers, min_backup_workers, min_backup_schedule):
-    if current_day == len(schedule):
-        # Base case: All days are assigned, return the schedule
-        backup_workers_count = count_backup_workers(schedule)
-        if backup_workers_count < min_backup_workers[0]:
-            min_backup_workers[0] = backup_workers_count
-            min_backup_schedule[0] = schedule
-        return
-    
-    for worker in workers:
-        for day in schedule:
-            for shift in day.shifts:
-                pass
 
 
 '''This function loops over the schedule and check where the backup workers are if they can be replaced'''
@@ -238,14 +224,27 @@ def revisit_backup_spots(schedule, workers):
     
 
 ''' This function add the constraints table to the schedule for easy access.'''
-def transfer_constraints_to_schedule(wb,ws,ws2, amount_of_workers,path):
+def transfer_constraints_to_schedule(wb,ws,ws2, amount_of_workers,path, workers):
 
     for i in range(1,amount_of_workers+2):
         for j in range(10):
             ws[chr(ord(START_OF_REQUEST_TABLE)+j) + str(i)] = ws2[chr(ord(START_OF_SCHEDULE)+j) +str(i)].value
-    
-    wb.save(f"{path}")
 
+        # Adding the comment section for each worker to the table.
+        ws['L'+ str(i)] = ws2[COMMENT_POS_ON_CONSTRAINTS+str(i)].value
+        # adding yellow color if there is a comment on a worker and resetting the cell
+        ws['L'+ str(i)].fill = PatternFill(fill_type=None)
+        if ws['L'+ str(i)].value != None:
+            color = '00FFFF00' #yellow color
+            ws['L'+ str(i)].fill = PatternFill(start_color=color, end_color=color, fill_type='solid')
+        
+
+
+    ws[chr(ord(SHIFT_COUNTER_POS_FINAL_RESULT)) + '1'] = 'AMOUNT:'
+    for curr_workers in range(amount_of_workers):
+        ws[chr(ord(SHIFT_COUNTER_POS_FINAL_RESULT)) + str(curr_workers+2)] = workers[curr_workers].shifts_counter    
+
+    wb.save(f"{path}")
 
 
 '''This function returns True if a shift is a night shift'''
@@ -272,4 +271,3 @@ def check_consecutive_nights(worker,yesterday):
             return True
     else:
         return False
-      

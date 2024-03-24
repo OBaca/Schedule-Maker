@@ -55,6 +55,8 @@ def make_excel_automate():
     date_str = datetime.now().strftime("%Y-%m-%d")
     week_date = datetime.strptime(date_str, "%Y-%m-%d")
     
+
+    comment_position_on_sheets = 'L'
     
     # C = date, D - name, E - Sunday ...., K=Saturday, L=notes, M=email
     workers = []
@@ -71,7 +73,9 @@ def make_excel_automate():
                 for j in range(8):
                     # A represent name in template, D represent name in sheet
                     ws[chr(65 + j)+str(curr_row_in_template)] = ws2[chr(68 + j)+str(i)].value
-                ws3['J'+str(curr_row_in_template)] =  ws[chr(65)+str(curr_row_in_template)].value      
+
+                ws3['J'+str(curr_row_in_template)] =  ws[chr(65)+str(curr_row_in_template)].value
+                ws[COMMENT_POS_ON_CONSTRAINTS+str(curr_row_in_template)] = ws2[comment_position_on_sheets+str(i)].value
     
     # get the backup worker to be at the end of the workers list
     ws3['J'+str(curr_row_in_template+1)] = ws3['H'+str(16)].value
@@ -79,6 +83,8 @@ def make_excel_automate():
     ws3['H'+str(16)].fill = PatternFill(fill_type=None)
     ws3['H'+str(16)] = None
     
+
+
     # saving the excel files.
     wb.save("automate/תבנית זמינות.xlsx")
     wb3.save("automate/תבנית סידור.xlsx")

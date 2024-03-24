@@ -82,6 +82,6 @@ def algorithm(manual=True):
     
     print(len(workers[0].availability[0]))
 
-    transfer_constraints_to_schedule(wb,ws,ws2,len(workers),path)
+    transfer_constraints_to_schedule(wb,ws,ws2,len(workers),path, workers)
 
     make_excel_schedule(schedule,path)
