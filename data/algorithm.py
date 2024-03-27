@@ -80,7 +80,6 @@ def algorithm(manual=True):
     workers = best_workers
     
     
-    print(len(workers[0].availability[0]))
 
     transfer_constraints_to_schedule(wb,ws,ws2,len(workers),path, workers)
 
