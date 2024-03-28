@@ -34,7 +34,7 @@ def gui():
 
     button = CTkButton(master=frame, text="MANUAL",command=manual)
     button.pack(pady=12,padx=10)
-    '''
+    
     textbox = CTkTextbox(master=frame, width=20,height=20)
     textbox.insert("0.0", "CREATE NEW TABLE")
     textbox.pack(pady=20,padx=20,fill="both",expand=False)
@@ -50,7 +50,7 @@ def gui():
 
     button = CTkButton(master=frame, text="CREATE NEW TABLE",fg_color=['#3B8ED0','#1F6AA5'],command=lambda : create_new_table(entry_name.get(),entry_amount_of_workers.get(),entry_amount_of_stations.get()))
     button.pack(pady=12,padx=10)
-    '''
+    
 
     app.mainloop()
 
