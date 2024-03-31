@@ -1,5 +1,4 @@
 from data.constants import *
-import os
 
 class Day:
     def __init__(self, id, name, amount_of_shifts=4):

@@ -1,4 +1,4 @@
-import random
+
 from data.day import *
 from data.worker import *
 from data.constants import *

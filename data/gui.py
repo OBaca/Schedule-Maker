@@ -3,6 +3,7 @@ from openpyxl import Workbook, load_workbook
 from openpyxl.styles import PatternFill
 from data.algorithm import algorithm
 from data.constants import *
+from data.init_table import *
 
 def gui():
     set_appearance_mode("dark")
@@ -34,8 +35,12 @@ def gui():
 
     button = CTkButton(master=frame, text="MANUAL",command=manual)
     button.pack(pady=12,padx=10)
+
+
+    button = CTkButton(master=frame, text="CREATE NEW TABLE",command=create_new_table)
+    button.pack(pady=12,padx=10)
     
-    textbox = CTkTextbox(master=frame, width=20,height=20)
+    '''textbox = CTkTextbox(master=frame, width=20,height=20)
     textbox.insert("0.0", "CREATE NEW TABLE")
     textbox.pack(pady=20,padx=20,fill="both",expand=False)
 
@@ -50,15 +55,14 @@ def gui():
 
     button = CTkButton(master=frame, text="CREATE NEW TABLE",fg_color=['#3B8ED0','#1F6AA5'],command=lambda : create_new_table(entry_name.get(),entry_amount_of_workers.get(),entry_amount_of_stations.get()))
     button.pack(pady=12,padx=10)
-    
+    '''
 
     app.mainloop()
 
-
+'''
 def create_new_table(name,amount_workers,amount_stations):
     print(f"Name:{name},amount:{amount_workers},stations:{amount_stations}")
-
-
+'''
 
 
 def make_excel_automate():
