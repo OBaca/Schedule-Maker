@@ -44,14 +44,30 @@
 ---
 
 ## How To Use
-  ##### Windows setup:
-  - open cmd in the folder and write:
-    ```pip install -r requirements.txt```
-  - click on Schedule-Maker.exe
-  ##### Mac setup:
-  - Open terminal in the folder and write:
-    ```python setup.py py2app```
-  - Click on Schedule-Maker.app
+  ##### ***Step 1:*** Google form setup
+  1. copy this link: and save the form
+  2. create google sheet:
+     
+![sheet](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXF2cWh1NW41dHlvOHFiOWRqd2xhM2tqdzlxamQ0cmp4ZmljcXVwNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xFqWJGhbwvl3ESqPqw/giphy.gif)
+
+  4. After the Google Sheet and the Google Form are linked, you can send the link to your workers for them to fill out their constraints.
+
+  ![sheet2](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExamNpZ3BtenU5azdrYmFhZmx6OTNxaW5lamV0YjZlZWJjYmsxNmEzMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IArR6NbTjfyOGJLVxJ/giphy.gif)
+  ##### ***Step 2:*** Setup:
+  ###### Windows Setup:
+   - open cmd in the folder and write:
+     ```pip install -r requirements.txt```
+   - click on Schedule-Maker.exe
+  ###### Mac Setup:
+   - Open terminal in the folder and write:
+     ```python setup.py py2app```
+   - Click on Schedule-Maker.app
+
+
+
+ ##### ***Step 3:*** Link Google Sheets to Excel in Real Time
+  1. Enter folder sheets and open the Excel file: "sheet"
+  2. Follow this gif steps below:
 
 
 [Back To The Top](#Schedule-Maker)
