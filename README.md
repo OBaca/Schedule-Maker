@@ -58,7 +58,7 @@ FINAL RESULT
 
 ## Setup
   ##### ***Step 1:*** Google form setup
-  1. copy this link: and save the form
+  1. copy this [link](https://docs.google.com/forms/d/1m170bzx7qc6tQB1d72rywQjbOEVdoDulN0Wu6iPKG7M/copy): and save the form
   2. create google sheet:
      
 ![sheet](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXF2cWh1NW41dHlvOHFiOWRqd2xhM2tqdzlxamQ0cmp4ZmljcXVwNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xFqWJGhbwvl3ESqPqw/giphy.gif)
