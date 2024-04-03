@@ -2,6 +2,11 @@
 
 ![Project Image](https://i.postimg.cc/wTVkZY1M/empty-sched.png)
 
+FINAL RESULT
+
+![Example-Picture](https://i.postimg.cc/yNy7dTyF/example-sched.png)
+
+
 > 
 
 ---
@@ -9,9 +14,9 @@
 ### Table of Contents
 
 - [Description](#description)
-- [How To Use](#how-to-use)
-- [In Progress](#Main-Menu-and-Costumes)
-- [In Progress](#Gameplay)
+- [Setup](#Setup)
+- [Create-a-Table](#Create-a-Table)
+- [How-To-Use](#How-To-use)
 
 
 ---
@@ -43,7 +48,7 @@
 
 ---
 
-## How To Use
+## Setup
   ##### ***Step 1:*** Google form setup
   1. copy this link: and save the form
   2. create google sheet:
@@ -58,6 +63,7 @@
    - open cmd in the folder and write:
      ```pip install -r requirements.txt```
    - click on Schedule-Maker.exe
+   - 
   ###### Mac Setup:
    - Open terminal in the folder and write:
      ```python setup.py py2app```
@@ -66,22 +72,36 @@
 
 
  ##### ***Step 3:*** Link Google Sheets to Excel in Real Time
-  1. Enter folder sheets and open the Excel file: "sheet"
-  2. Follow this gif steps below:
+  1. Enter folder sheets and open the Excel file: "sheet".
+  2. Follow this [Youtube video](https://www.youtube.com/watch?v=u__HU9fzsAY&ab_channel=ChesterTugwell) to link google sheets to the local excel file.
+  3. Important: make sure you select in the properties "Refresh data when opening the file".
 
 
 [Back To The Top](#Schedule-Maker)
 
 ---
 
-## In Progress
+## Create a Table
+
+IN PROGRESS
 
 
 [Back To The Top](#Schedule-Maker)
 
 ---
 
-## In Progress
+## How To Use
+Firstly, workers send their constraints using the link provided in step 1 of the setup. Once everyone has sent their constraints:
+1. Navigate to the folder 'sheets' and open 'sheet.xlsx'. Wait for it to update (approximately 5-10 seconds), then save and close it.
+2. Click on Schedule-Maker.exe.
+ ![exe-pic](https://i.postimg.cc/x84zZQkT/exe.png)
+
+3. Now, you can click on the 'Automate' button, and it will generate a schedule for you, assigning all the workers based on their constraints.
+4. Alternatively, you can manually change their constraints by clicking on the 'Manual' button:
+![Manual-Schedule](https://i.postimg.cc/1tNhFcpC/manual-sched.png)
+
+You can adjust the settings for your schedule as desired, then save it, and click 'Automate' again.
+The final schedule will be located in the 'RESULTS' folder, with each week having its own folder. You can create as many schedules as you want and choose the one you prefer.
 
 
 [Back To The Top](#Schedule-Maker)
