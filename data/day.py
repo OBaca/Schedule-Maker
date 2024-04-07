@@ -225,7 +225,7 @@ def revisit_backup_spots(schedule, workers):
 ''' This function add the constraints table to the schedule for easy access.'''
 def transfer_constraints_to_schedule(wb,ws,ws2, amount_of_workers,path, workers):
 
-    for i in range(1,amount_of_workers+2):
+    for i in range(2,amount_of_workers+2):
         for j in range(10):
             ws[chr(ord(START_OF_REQUEST_TABLE)+j) + str(i)] = ws2[chr(ord(START_OF_SCHEDULE)+j) +str(i)].value
 
@@ -238,8 +238,6 @@ def transfer_constraints_to_schedule(wb,ws,ws2, amount_of_workers,path, workers)
             ws['L'+ str(i)].fill = PatternFill(start_color=color, end_color=color, fill_type='solid')
         
 
-
-    ws[chr(ord(SHIFT_COUNTER_POS_FINAL_RESULT)) + '1'] = 'AMOUNT:'
     for curr_workers in range(amount_of_workers):
         ws[chr(ord(SHIFT_COUNTER_POS_FINAL_RESULT)) + str(curr_workers+2)] = workers[curr_workers].shifts_counter    
 
