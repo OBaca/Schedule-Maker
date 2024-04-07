@@ -70,33 +70,36 @@ def make_excel_automate():
     wb2 = load_workbook("sheets/sheet.xlsx")
     ws2 = wb2.active
     
-    wb = load_workbook("automate/תבנית זמינות.xlsx")
+    wb = load_workbook("Template/תבנית זמינות.xlsx")
     ws = wb.active
 
-    wb3 = load_workbook("automate/תבנית סידור.xlsx")
+    wb3 = load_workbook("Template/תבנית סידור.xlsx")
     ws3 = wb3.active
 
     date_str = datetime.now().strftime("%Y-%m-%d")
     week_date = datetime.strptime(date_str, "%Y-%m-%d")
     
 
-    comment_position_on_sheets = 'L'
+    comment_position_on_sheets = 'J'
     
     # C = date, D - name, E - Sunday ...., K=Saturday, L=notes, M=email
     workers = []
     curr_row_in_template = 1
-    for i in range(ws2.max_row,2,-1):
-        curr_date_str = timestamp_to_date(ws2["C"+str(i)].value)
+    for i in range(ws2.max_row,1,-1):
+        print(curr_row_in_template)
+        if not ws2["A"+str(i)].value:
+            continue
+        curr_date_str = timestamp_to_date(ws2["A"+str(i)].value)
         curr_date = datetime.strptime(curr_date_str, "%Y-%m-%d")
         # checking if the date on the table is the same as this week date.
         if curr_date.isocalendar()[1] == week_date.isocalendar()[1]:
-            if ws2["M"+str(i)].value not in workers:
+            if ws2["K"+str(i)].value not in workers:
                 curr_row_in_template+=1
-                workers.append(ws2["M"+str(i)].value)
+                workers.append(ws2["K"+str(i)].value)
                 # logic to insert the demands into the template
                 for j in range(8):
                     # A represent name in template, D represent name in sheet
-                    ws[chr(65 + j)+str(curr_row_in_template)] = ws2[chr(68 + j)+str(i)].value
+                    ws[chr(65 + j)+str(curr_row_in_template)] = ws2[chr(66 + j)+str(i)].value
 
                 ws3['J'+str(curr_row_in_template)] =  ws[chr(65)+str(curr_row_in_template)].value
                 ws[COMMENT_POS_ON_CONSTRAINTS+str(curr_row_in_template)] = ws2[comment_position_on_sheets+str(i)].value
@@ -112,6 +115,10 @@ def make_excel_automate():
     # saving the excel files.
     wb.save("automate/תבנית זמינות.xlsx")
     wb3.save("automate/תבנית סידור.xlsx")
+
+    wb.close()
+    wb2.close()
+    wb3.close()
     algorithm(manual=False)
     
 

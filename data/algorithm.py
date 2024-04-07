@@ -7,28 +7,14 @@ from copy import deepcopy
 
 
 def algorithm(manual=True):
-    if manual:
-        path = "manual/תבנית סידור.xlsx"
-        wb = load_workbook(f"{path}")
-        ws = wb.active
+    path = ""
+    if manual: path = "manual"
+    else: path= "automate"
+    wb = load_workbook(f"{path}/תבנית סידור.xlsx")
+    ws = wb.active
         
-        wb2 = load_workbook("manual/תבנית זמינות.xlsx")
-        ws2 = wb2.active
-
-        
-        
-    else:
-        path = "automate/תבנית סידור.xlsx"
-        wb = load_workbook(f"{path}")
-        ws = wb.active
-        
-        wb2 = load_workbook("automate/תבנית זמינות.xlsx")
-        ws2 = wb2.active
-
-        
-        
-
-    
+    wb2 = load_workbook(f"{path}/תבנית זמינות.xlsx")
+    ws2 = wb2.active
 
 
     #days = {'Sunday':'B', 'Monday':'C', 'Tuesday':'D', 'Wednesday':'E', 'Thursday':'F', 'Friday':'G', 'Saturday':'H'}
@@ -40,7 +26,7 @@ def algorithm(manual=True):
     #transfer_workers_names(ws,ws2,len(workers))
     for i in range(2,len(workers)+3):
         ws['J' + str(i)] = ws2['A'+str(i)].value
-    wb.save(f"{path}")
+    wb.save(f"{path}/תבנית סידור.xlsx")
     
     
     best_schedule = []

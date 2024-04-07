@@ -52,7 +52,7 @@ def create_schedule(amount_of_shifts):
 
 ''' This function creates an excel schedule from the availability excel sheet.'''
 def make_excel_schedule(schedule,path):
-    wb = load_workbook(f"{path}")
+    wb = load_workbook(f"{path}/תבנית סידור.xlsx")
     ws = wb.active
 
     day_counter=0
@@ -243,7 +243,7 @@ def transfer_constraints_to_schedule(wb,ws,ws2, amount_of_workers,path, workers)
     for curr_workers in range(amount_of_workers):
         ws[chr(ord(SHIFT_COUNTER_POS_FINAL_RESULT)) + str(curr_workers+2)] = workers[curr_workers].shifts_counter    
 
-    wb.save(f"{path}")
+    wb.save(f"{path}/תבנית סידור.xlsx")
 
 
 '''This function returns True if a shift is a night shift'''
