@@ -72,10 +72,10 @@ FINAL RESULT
      ```pip install -r requirements.txt```
    - click on Schedule-Maker.exe
    - 
-  ###### Mac Setup:
-   - Open terminal in the folder and write:
-     ```python setup.py py2app```
-   - Click on Schedule-Maker.app
+  ###### Mac Setup: 
+   - Need to install python, openpyxl, customtkinter
+   - Open terminal in the main folder and write: ```python main.py```
+   - At this moment need to install the libraries manually, soon will be added .app file
 
 
 
