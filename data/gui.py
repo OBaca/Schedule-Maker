@@ -28,15 +28,6 @@ def gui():
     button.pack(pady=12,padx=10)
 
 
-    textbox = CTkTextbox(master=frame, width=20,height=60)
-    textbox.insert("0.0", "I fill manually all the workers and the settings I want in the excel file: \"זמינות\" \nand now I can click on manual")
-    textbox.pack(pady=20,padx=20,fill="both",expand=False)
-
-
-    button = CTkButton(master=frame, text="MANUAL",command=manual)
-    button.pack(pady=12,padx=10)
-
-
     button = CTkButton(master=frame, text="CREATE NEW TABLE",command=create_new_table)
     button.pack(pady=12,padx=10)
     
@@ -129,7 +120,7 @@ def make_excel_automate():
     wb.close()
     wb2.close()
     wb3.close()
-    algorithm(manual=False)
+    algorithm()
     
 
 
@@ -152,5 +143,3 @@ def timestamp_to_date(timestamp_str):
     return regular_date_str
 
 
-def manual():
-    algorithm()

@@ -6,10 +6,8 @@ from copy import deepcopy
 
 
 
-def algorithm(manual=True):
-    path = ""
-    if manual: path = "manual"
-    else: path= "automate"
+def algorithm():
+    path = "automate"
     wb = load_workbook(f"{path}/תבנית סידור.xlsx")
     ws = wb.active
         
