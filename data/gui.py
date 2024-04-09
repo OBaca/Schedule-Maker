@@ -40,11 +40,11 @@ def gui():
     button = CTkButton(master=frame, text="CREATE NEW TABLE",command=create_new_table)
     button.pack(pady=12,padx=10)
     
-    '''textbox = CTkTextbox(master=frame, width=20,height=20)
+    textbox = CTkTextbox(master=frame, width=20,height=20)
     textbox.insert("0.0", "CREATE NEW TABLE")
     textbox.pack(pady=20,padx=20,fill="both",expand=False)
 
-    entry_name = CTkEntry(frame,placeholder_text="Enter schedule name",width=160,corner_radius=50,fg_color=("green","lightgreen"),placeholder_text_color="grey",text_color="black")
+    entry_name = CTkEntry(frame,placeholder_text="Enter schedule name (in english)",width=220,corner_radius=50,fg_color=("green","lightgreen"),placeholder_text_color="grey",text_color="black")
     entry_name.pack(pady=20)
 
     entry_amount_of_workers = CTkEntry(frame,placeholder_text="Enter amount of workers",width=170,corner_radius=50,fg_color=("green","lightgreen"),placeholder_text_color="grey",text_color="black")
@@ -53,17 +53,27 @@ def gui():
     entry_amount_of_stations = CTkEntry(frame,placeholder_text="Enter amount of stations",width=170,corner_radius=50,fg_color=("green","lightgreen"),placeholder_text_color="grey",text_color="black")
     entry_amount_of_stations.pack(pady=20)
 
-    button = CTkButton(master=frame, text="CREATE NEW TABLE",fg_color=['#3B8ED0','#1F6AA5'],command=lambda : create_new_table(entry_name.get(),entry_amount_of_workers.get(),entry_amount_of_stations.get()))
+    button = CTkButton(master=frame, text="CREATE NEW TABLE",fg_color=['#3B8ED0','#1F6AA5'],command=lambda : create_new_table(entry_name.get(),int(entry_amount_of_workers.get()),int(entry_amount_of_stations.get())))
     button.pack(pady=12,padx=10)
-    '''
+    
 
     app.mainloop()
 
 '''
 def create_new_table(name,amount_workers,amount_stations):
     print(f"Name:{name},amount:{amount_workers},stations:{amount_stations}")
-'''
+    wb = load_workbook("create_new_table/new_table.xlsx")
+    ws = wb.active
+    try:
+        ws['B2'] = name
+        ws['B3'] = int(amount_workers)
+        ws['B4'] = int(amount_stations)
+    except:
+        print("Please use english only on name, please use whole numbers on amount")
 
+
+    wb.save("create_new_table/new_table.xlsx")
+'''
 
 def make_excel_automate():
 
