@@ -14,8 +14,12 @@ class Worker:
         self.eightx2_counter = 0 #8 hours of work, 8 hours of rest, 8 hours of work
         self.max_eightx2 = eightx2
 
+    
+
+    '''This function return worker position when try to print a worker.'''
     def  __str__(self):
         return self.availability_position
+
 
 
     ''' This function get from the excel file the worker availability to work on each day. '''
@@ -31,6 +35,7 @@ class Worker:
             else:
                 self.availability[i] = ws[temp].value
     
+
 
     ''' This function check the worker availability to work on each shift.'''
     def check_availability(self, day, day_num, shift_num):
@@ -53,20 +58,14 @@ class Worker:
             night=[2,5]
 
         for i in range(len(availability)):
-
             if availability[0] =='':
                 return False
-            
             if (availability[i][0] in 'af' or availability[i] == 'morning') and shift_num in morning:
-                #true
                 return True
             if (availability[i][0] in 'bf' or availability[i] == 'noon') and shift_num in noon:
-                #true
                 return True
             if (availability[i][0] in 'cf' or availability[i] == 'night') and shift_num in night:
-                #true
                 return True
-        
         return False
 
 
@@ -78,7 +77,6 @@ class Worker:
         for i in range(7):
             print(days[i] + ": " + str(self.availability[i]))
         print("===============")
-
 
 
 
@@ -96,6 +94,7 @@ def create_workers(ws):
 
 
 
+''' This function prints the worker stats, used for debug.'''
 def print_workers_stats(workers):
     for worker in workers:
         print('-~-~-~-~-~-')
@@ -105,12 +104,12 @@ def print_workers_stats(workers):
         print('shifts counter: '+ str(worker.shifts_counter))
         print('nights counter: ' + str(worker.nights_counter))
         print('amount of eightx2: ' + str(worker.eightx2))
-        print('amount of eightx3: '+ str(worker.eightx3))
 
 
+
+'''This function returns True/False depends on the worker constraint that filled by the manager.'''
 def convert_consecutive_nights_to_bool(consecutive_nights):
     if consecutive_nights == 'Y':
         return True
     else:
         return False
-    

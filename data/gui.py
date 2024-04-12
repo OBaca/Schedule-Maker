@@ -50,21 +50,6 @@ def gui():
 
     app.mainloop()
 
-'''
-def create_new_table(name,amount_workers,amount_stations):
-    print(f"Name:{name},amount:{amount_workers},stations:{amount_stations}")
-    wb = load_workbook("create_new_table/new_table.xlsx")
-    ws = wb.active
-    try:
-        ws['B2'] = name
-        ws['B3'] = int(amount_workers)
-        ws['B4'] = int(amount_stations)
-    except:
-        print("Please use english only on name, please use whole numbers on amount")
-
-
-    wb.save("create_new_table/new_table.xlsx")
-'''
 
 def make_excel_automate():
 
@@ -87,8 +72,7 @@ def make_excel_automate():
     workers = []
     curr_row_in_template = 1
     for i in range(ws2.max_row,1,-1):
-        print(curr_row_in_template)
-        if not ws2["A"+str(i)].value:
+        if ws2["A"+str(i)].value == None:
             continue
         curr_date_str = timestamp_to_date(ws2["A"+str(i)].value)
         curr_date = datetime.strptime(curr_date_str, "%Y-%m-%d")
@@ -120,6 +104,7 @@ def make_excel_automate():
     wb.close()
     wb2.close()
     wb3.close()
+    
     algorithm()
     
 
@@ -127,19 +112,13 @@ def make_excel_automate():
 
 ''' This function convert timestamp cell to date'''
 def timestamp_to_date(timestamp_str):
-    
     # getting the date without the ending in the brackets
     timestamp_str = timestamp_str.split("(")[0].strip()
-
     #format of timestamp
     timestamp_format = "%a %b %d %Y %H:%M:%S gmt%z"
-
     #string to datetime object
     timestamp_dt = datetime.strptime(timestamp_str, timestamp_format)
-
     # datetime object to a regular date string
     regular_date_str = timestamp_dt.strftime("%Y-%m-%d")
 
     return regular_date_str
-
-

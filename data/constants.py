@@ -20,6 +20,7 @@ SHIFT_COUNTER_POS_FINAL_RESULT = 'U'
 COMMENT_POS_ON_CONSTRAINTS = 'O'
 EIGHTX2_AMOUNT_POS = 'Q'
 
+'''This function creates a folder for every new week and creates a schedule.'''
 def save_folder_by_week():
     current_date = datetime.now()
     week_folder_name = f"Week_{current_date.isocalendar()[1]}_Year_{current_date.year}"

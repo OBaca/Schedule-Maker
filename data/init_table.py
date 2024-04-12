@@ -1,13 +1,9 @@
 from data.constants import *
 from copy import copy
 
+'''This function gets the user input from the gui, and create a new table.'''
 def create_new_table(name,amount_workers,amount_stations):
-    '''
-    wb_set_table = load_workbook("create_new_table/new_table.xlsx")
-    ws_set_table = wb_set_table.active
-    '''
-    
-
+    # load workbooks depends on user choice.
     wb_template = load_workbook(f"Template/תבנית_סידור_עמדה_{amount_stations}.xlsx")
     ws_template = wb_template.active
 
@@ -22,13 +18,17 @@ def create_new_table(name,amount_workers,amount_stations):
     except:
         print("You need to write the name in english")
 
-    
     wb_template.save("Template/תבנית סידור.xlsx")
 
+    # random colors to assign each line.
     colors = ['00FF00FF','0000FFFF','0000FF00','00008080','00FF8080','00808000']
+    # column position to avoid changing colors.
     colors_line_to_avoid = [2,3,4,5,6,7,8,10,12,14,15,16,18]
     color_idx = 0
+    # insert rows depends on amount of workers.
     ws_constraints.insert_rows(3, amount=amount_workers -1)
+
+    # setting each line with the font,colors etc.
     for i in range(3,amount_workers+2 ):
         if color_idx>=len(colors): color_idx=0    
         for c in range(1,19):
