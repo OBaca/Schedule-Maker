@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Change directory to the location of the script
+cd "$(dirname "$0")"
+
+# Get the directory of the script
+SCRIPT_DIR="$(pwd)"
+
+# Grant executable permissions to the script
+chmod +x "$0"
+
+# Change directory to the location of main.py
+cd "$SCRIPT_DIR"
+
+# Install dependencies
+pip3 install -r requirements.txt
