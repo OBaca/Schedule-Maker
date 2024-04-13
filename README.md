@@ -67,15 +67,16 @@ FINAL RESULT
 
   ![sheet2](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExamNpZ3BtenU5azdrYmFhZmx6OTNxaW5lamV0YjZlZWJjYmsxNmEzMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/IArR6NbTjfyOGJLVxJ/giphy.gif)
   ##### ***Step 2:*** Setup:
+  ##### First download the folder and extract it
   ###### Windows Setup:
    - open cmd in the folder and write:
      ```pip install -r requirements.txt```
-   - click on Schedule-Maker.exe
-   - 
+   - click on ```Schedule-Maker.exe```
+     
   ###### Mac Setup: 
-   - Need to install python, openpyxl, customtkinter
-   - Open terminal in the main folder and write: ```python main.py```
-   - At this moment need to install the libraries manually, soon will be added .app file
+   - Need to install python: ```https://www.python.org```
+   - Double click on the file: ```setup_install.sh```
+   - Double click on the file: ```run_mac_app.sh```
 
 
 
