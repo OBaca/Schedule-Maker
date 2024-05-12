@@ -1,11 +1,7 @@
 # Schedule-Maker
 
 ```
-I once saw my manager working on the schedule for next week,
-and he told me that it took him almost 4 hours just to gather every worker's constraints
-and ensure that each worker received a well-balanced set of shifts.
-So, I suggested to him, 'Why wouldn't I make a program for it?'
-Now, my manager can create a schedule in just 10 minutes, with 5 of those minutes spent waiting for the water to boil for coffee.
+Automatic work schedule maker using google forms to get constraints from the workers.
 ```
 
 ![Project Image](https://i.postimg.cc/wTVkZY1M/empty-sched.png)
