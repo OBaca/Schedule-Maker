@@ -24,9 +24,11 @@ def gui():
                             \n2. Press on the \" automate\" button.")
     textbox.pack(pady=20,padx=20,fill="both",expand=False)
 
-    button = CTkButton(master=frame, text="AUTOMATE", command=make_excel_automate)
+    button = CTkButton(master=frame, text="Create Table From Google-Forms", command=make_excel_automate)
     button.pack(pady=12,padx=10)
 
+    button = CTkButton(master=frame, text="AUTOMATE", command=algorithm)
+    button.pack(pady=12,padx=10)
 
     button = CTkButton(master=frame, text="CREATE NEW TABLE",command=create_new_table)
     button.pack(pady=12,padx=10)
@@ -105,7 +107,6 @@ def make_excel_automate():
     wb2.close()
     wb3.close()
     
-    algorithm()
     
 
 

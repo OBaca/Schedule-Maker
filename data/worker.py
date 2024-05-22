@@ -83,7 +83,10 @@ class Worker:
 ''' This function create the workers and assign them to the workers array'''
 def create_workers(ws):
     workers = []
-    amount_of_workers = ws[AMOUNT_OF_WORKERS_POS].value
+    wb_settings = load_workbook("Template/settings.xlsx")
+    ws_settings = wb_settings.active
+    amount_of_workers = ws_settings[SETTINGS_AMOUNT_OF_WORKERS].value
+    wb_settings.close()
 
     for i in range(2,2+amount_of_workers):
         workers.append(Worker(f"{WORKER_POSITION}{i}",max_shifts= ws[f"{AMOUNT_OF_SHIFTS_POS}{i}"].value,max_nights= ws[f"{AMOUNT_OF_NIGHT_POS}{i}"].value,consecutive_nights=ws[f"{CONSECUTIVE_NIGHTS_POS}{i}"].value, eightx2=ws[f"{EIGHTX2_AMOUNT_POS}{i}"].value))

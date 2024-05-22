@@ -6,19 +6,18 @@ import os
 from datetime import datetime
 
 DAYS =  ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-BACKUP_WORKER = 'A9'
+BACKUP_WORKER = 'Backup'
 START_OF_REQUEST_TABLE = 'L'
 START_OF_SCHEDULE = 'A'
 NIGHTS_LIMIT = 2
-AMOUNT_OF_WORKERS = 'M8'
 AMOUNT_OF_SHIFTS_POS = 'I'
 WORKER_POSITION = 'A'
-AMOUNT_OF_WORKERS_POS = 'M20'
 AMOUNT_OF_NIGHT_POS = 'K'
 CONSECUTIVE_NIGHTS_POS = 'M'
 SHIFT_COUNTER_POS_FINAL_RESULT = 'U'
 COMMENT_POS_ON_CONSTRAINTS = 'O'
 EIGHTX2_AMOUNT_POS = 'Q'
+SETTINGS_AMOUNT_OF_WORKERS = 'D9'
 
 '''This function creates a folder for every new week and creates a schedule.'''
 def save_folder_by_week():

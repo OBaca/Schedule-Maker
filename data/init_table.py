@@ -10,6 +10,9 @@ def create_new_table(name,amount_workers,amount_stations):
     wb_constraints = load_workbook("Template/תבנית_זמינות_עמדה.xlsx")
     ws_constraints = wb_constraints.active
 
+    wb_settings = load_workbook("Template/settings.xlsx")
+    ws_settings = wb_settings.active
+
     #settings
     STATION1_TABLE_NAME = 'A1'
     
@@ -43,6 +46,10 @@ def create_new_table(name,amount_workers,amount_stations):
         
         color_idx+=1
 
+    ws_settings[SETTINGS_AMOUNT_OF_WORKERS] = amount_workers
+    wb_settings.save("Template/settings.xlsx")
+    wb_settings.close()
+    
     wb_constraints.save("Template/תבנית זמינות.xlsx")
     wb_constraints.close()
     wb_template.close()

@@ -59,9 +59,11 @@ def make_excel_schedule(schedule,path):
     for day in schedule:
         for i in range(len(day.shifts)):
             # placing the right names at the right shifts
-            ws[chr(66 + day_counter) + str(get_line_from_template(day.amount_of_shifts, i)) ] = ws['J' + day.shifts[i][1]].value
             if day.shifts[i] == BACKUP_WORKER:
+                ws[chr(66 + day_counter) + str(get_line_from_template(day.amount_of_shifts, i)) ] = "Backup"
                 ws[chr(66 + day_counter) + str(get_line_from_template(day.amount_of_shifts, i))].fill = PatternFill(start_color='FFFF0000',end_color='FFFF0000',fill_type='solid')
+            else:
+                ws[chr(66 + day_counter) + str(get_line_from_template(day.amount_of_shifts, i)) ] = ws['J' + day.shifts[i][1]].value
         day_counter+=1
 
     wb.save(f"{save_folder_by_week()}")
